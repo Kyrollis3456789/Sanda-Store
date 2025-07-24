@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Premium Socks Collection - StyleStep</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/animations.css">
+    <link rel="stylesheet" href="styles/category.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <!-- Logo -->
+                <div class="logo">
+                    <a href="index.html" style="display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: inherit;">
+                        <div class="logo-icon">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <span class="logo-text">StyleStep</span>
+                    </a>
+                </div>
+
+                <!-- Navigation -->
+                <nav class="nav desktop-nav">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="socks.html" class="nav-link active">Socks</a>
+                    <a href="shoes.html" class="nav-link">Shoes</a>
+                    <a href="salwar.html" class="nav-link">Salwar</a>
+                    <a href="sale.html" class="nav-link">Sale</a>
+                </nav>
+
+                <!-- Actions -->
+                <div class="header-actions">
+                    <button class="action-btn search-btn" onclick="toggleSearch()">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    
+                    <button class="action-btn wishlist-btn" onclick="toggleWishlist()">
+                        <i class="fas fa-heart"></i>
+                        <span class="badge wishlist-count">0</span>
+                    </button>
+                    
+                    <button class="action-btn account-btn">
+                        <i class="fas fa-user"></i>
+                    </button>
+                    
+                    <button class="action-btn cart-btn" onclick="toggleCart()">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="badge cart-count">0</span>
+                    </button>
+                    
+                    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-menu-content">
+                <a href="index.html" class="mobile-nav-link">Home</a>
+                <a href="socks.html" class="mobile-nav-link">Socks</a>
+                <a href="shoes.html" class="mobile-nav-link">Shoes</a>
+                <a href="salwar.html" class="mobile-nav-link">Salwar</a>
+                <a href="sale.html" class="mobile-nav-link">Sale</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Search Modal -->
+    <div class="modal search-modal" id="searchModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="search-form">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="searchInput" placeholder="Search for socks..." class="search-input">
+                    <button class="clear-search" onclick="clearSearch()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <button class="modal-close" onclick="toggleSearch()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="search-results" id="searchResults">
+                <div class="search-placeholder">
+                    <p>Start typing to search for socks</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart Sidebar -->
+    <div class="sidebar cart-sidebar" id="cartSidebar">
+        <div class="sidebar-content">
+            <div class="sidebar-header">
+                <h3><i class="fas fa-shopping-bag"></i> Your Cart (<span class="cart-items-count">0</span> items)</h3>
+                <button class="sidebar-close" onclick="toggleCart()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <div class="empty-cart">
+                    <div class="empty-icon">
+                        <i class="fas fa-shopping-bag"></i>
+                    </div>
+                    <h3>Your cart is empty</h3>
+                    <p>Looks like you haven't added any items to your cart yet.</p>
+                    <button class="btn btn-primary" onclick="toggleCart()">Continue Shopping</button>
+                </div>
+            </div>
+            <div class="cart-footer" id="cartFooter" style="display: none;">
+                <div class="cart-summary">
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+                        <span class="cart-subtotal">$0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Shipping</span>
+                        <span>Calculated at checkout</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total</span>
+                        <span class="cart-total">$0.00</span>
+                    </div>
+                </div>
+                <div class="cart-actions">
+                    <button class="btn btn-primary btn-full">Proceed to Checkout</button>
+                    <button class="btn btn-outline btn-full" onclick="clearCart()">Clear Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wishlist Sidebar -->
+    <div class="sidebar wishlist-sidebar" id="wishlistSidebar">
+        <div class="sidebar-content">
+            <div class="sidebar-header">
+                <h3><i class="fas fa-heart"></i> Your Wishlist (<span class="wishlist-items-count">0</span> items)</h3>
+                <button class="sidebar-close" onclick="toggleWishlist()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="wishlist-items" id="wishlistItems">
+                <div class="empty-wishlist">
+                    <div class="empty-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Your wishlist is empty</h3>
+                    <p>Start adding items you love by clicking the heart icon.</p>
+                    <button class="btn btn-primary" onclick="toggleWishlist()">Continue Shopping</button>
+                </div>
+            </div>
+            <div class="wishlist-footer" id="wishlistFooter" style="display: none;">
+                <div class="wishlist-actions">
+                    <button class="btn btn-primary btn-full" onclick="addAllToCart()">Add All to Cart</button>
+                    <button class="btn btn-outline btn-full" onclick="clearWishlist()">Clear Wishlist</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Category Hero -->
+        <section class="category-hero">
+            <div class="container">
+                <div class="category-hero-content">
+                    <div class="category-hero-text">
+                        <div class="breadcrumb">
+                            <a href="index.html">Home</a>
+                            <i class="fas fa-chevron-right"></i>
+                            <span>Socks</span>
+                        </div>
+                        <h1 class="category-title fade-in-up">Premium Socks Collection</h1>
+                        <p class="category-description fade-in-up">
+                            Comfortable and durable socks for every occasion. From athletic performance to everyday comfort.
+                        </p>
+                        <div class="category-stats fade-in-up">
+                            <div class="stat">
+                                <span class="stat-number" id="socksCount">12</span>
+                                <span class="stat-label">Products</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">150+</span>
+                                <span class="stat-label">Styles</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number">4.8</span>
+                                <span class="stat-label">Rating</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="category-hero-image">
+                        <img src="https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?w=500&h=400&fit=crop" alt="Premium Socks" class="floating-element">
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Filters and Products -->
+        <section class="category-content">
+            <div class="container">
+                <div class="category-layout">
+                    <!-- Filters Sidebar -->
+                    <aside class="filters-sidebar">
+                        <div class="filters-header">
+                            <h3><i class="fas fa-filter"></i> Filters</h3>
+                            <button class="btn btn-outline btn-small" onclick="clearAllFilters()">Clear All</button>
+                        </div>
+
+                        <!-- Color Filter -->
+                        <div class="filter-group">
+                            <h4 class="filter-title">Colors</h4>
+                            <div class="filter-options" id="colorFilters">
+                                <label class="filter-option">
+                                    <input type="checkbox" value="black" onchange="filterByColor()">
+                                    <span class="color-swatch" style="background-color: black;"></span>
+                                    <span>Black</span>
+                                </label>
+                                <label class="filter-option">
+                                    <input type="checkbox" value="white" onchange="filterByColor()">
+                                    <span class="color-swatch" style="background-color: white; border: 1px solid #ddd;"></span>
+                                    <span>White</span>
+                                </label>
+                                <label class="filter-option">
+                                    <input type="checkbox" value="gray" onchange="filterByColor()">
+                                    <span class="color-swatch" style="background-color: gray;"></span>
+                                    <span>Gray</span>
+                                </label>
+                                <label class="filter-option">
+                                    <input type="checkbox" value="blue" onchange="filterByColor()">
+                                    <span class="color-swatch" style="background-color: blue;"></span>
+                                    <span>Blue</span>
+                                </label>
+                                <label class="filter-option">
+                                    <input type="checkbox" value="red" onchange="filterByColor()">
+                                    <span class="color-swatch" style="background-color: red;"></span>
+                                    <span>Red</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Size Filter -->
+                        <div class="filter-group">
+                            <h4 class="filter-title">Sizes</h4>
+                            <div class="filter-options size-options" id="sizeFilters">
+                                <label class="filter-option">
+                                    <input type="checkbox" value="S" onchange="filterBySize()">
+                                    <span>S</span>
+                                </label>
+                                <label class="filter-option">
+                                    <input type="checkbox" value="M" onchange="filterBySize()">
+                                    <span>M</span>
+                                </label>
+                                <label class="filter-option">
+                                    <input type="checkbox" value="L" onchange="filterBySize()">
+                                    <span>L</span>
+                                </label>
+                                <label class="filter-option">
+                                    <input type="checkbox" value="XL" onchange="filterBySize()">
+                                    <span>XL</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Price Filter -->
+                        <div class="filter-group">
+                            <h4 class="filter-title">Price Range</h4>
+                            <div class="price-range">
+                                <input type="range" id="priceRange" min="0" max="50" value="50" class="price-slider" onchange="filterByPrice()">
+                                <div class="price-labels">
+                                    <span>$0</span>
+                                    <span id="maxPrice">$50</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Rating Filter -->
+                        <div class="filter-group">
+                            <h4 class="filter-title">Rating</h4>
+                            <div class="rating-filters">
+                                <label class="rating-option">
+                                    <input type="checkbox" value="4" onchange="filterByRating()">
+                                    <div class="rating-stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="far fa-star"></i>
+                                        <span>4+ Stars</span>
+                                    </div>
+                                </label>
+                                <label class="rating-option">
+                                    <input type="checkbox" value="4.5" onchange="filterByRating()">
+                                    <div class="rating-stars">
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star"></i>
+                                        <i class="fas fa-star-half-alt"></i>
+                                        <span>4.5+ Stars</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+                    </aside>
+
+                    <!-- Products Area -->
+                    <div class="products-area">
+                        <!-- Sort and View Controls -->
+                        <div class="products-controls">
+                            <div class="results-info">
+                                <span id="resultsCount">12 results</span>
+                            </div>
+                            <div class="controls-right">
+                                <div class="sort-controls">
+                                    <label for="sortSelect">Sort by:</label>
+                                    <select id="sortSelect" onchange="sortProducts()">
+                                        <option value="featured">Featured</option>
+                                        <option value="price-low">Price: Low to High</option>
+                                        <option value="price-high">Price: High to Low</option>
+                                        <option value="rating">Highest Rated</option>
+                                        <option value="newest">Newest</option>
+                                    </select>
+                                </div>
+                                <div class="view-controls">
+                                    <button class="view-btn active" data-view="grid" onclick="changeView('grid')">
+                                        <i class="fas fa-th"></i>
+                                    </button>
+                                    <button class="view-btn" data-view="list" onclick="changeView('list')">
+                                        <i class="fas fa-list"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Products Grid -->
+                        <div class="products-grid" id="productsGrid">
+                            <!-- Products will be populated by JavaScript -->
+                        </div>
+
+                        <!-- Load More Button -->
+                        <div class="load-more-container" id="loadMoreContainer" style="display: none;">
+                            <button class="btn btn-outline btn-large" onclick="loadMoreProducts()">
+                                <i class="fas fa-plus"></i>
+                                Load More Products
+                            </button>
+                        </div>
+
+                        <!-- No Results -->
+                        <div class="no-results" id="noResults" style="display: none;">
+                            <div class="no-results-icon">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <h3>No socks found</h3>
+                            <p>Try adjusting your filters or search for different terms.</p>
+                            <button class="btn btn-primary" onclick="clearAllFilters()">Clear Filters</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>StyleStep</h3>
+                    <p>Your premier destination for quality socks, shoes, and traditional salwar. Style meets comfort in every step.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="socks.html">Socks</a></li>
+                        <li><a href="shoes.html">Shoes</a></li>
+                        <li><a href="salwar.html">Salwar</a></li>
+                        <li><a href="sale.html">Sale</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Customer Service</h3>
+                    <ul class="footer-links">
+                        <li><a href="#contact">Contact Us</a></li>
+                        <li><a href="#shipping">Shipping Info</a></li>
+                        <li><a href="#returns">Returns</a></li>
+                        <li><a href="#size-guide">Size Guide</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe for exclusive deals and new arrivals.</p>
+                    <form class="footer-newsletter" onsubmit="subscribeNewsletter(event)">
+                        <input type="email" placeholder="Enter your email" required>
+                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 StyleStep. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Scripts -->
+    <script src="scripts/data.js"></script>
+    <script src="scripts/utils.js"></script>
+    <script src="scripts/cart.js"></script>
+    <script src="scripts/wishlist.js"></script>
+    <script src="scripts/search.js"></script>
+    <script src="scripts/category.js"></script>
+    <script>
+        // Initialize socks page
+        document.addEventListener('DOMContentLoaded', () => {
+            initCategoryPage('socks');
+        });
+    </script>
+</body>
+</html>

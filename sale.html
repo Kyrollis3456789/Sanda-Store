@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mega Sale - Up to 70% Off - StyleStep</title>
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/animations.css">
+    <link rel="stylesheet" href="styles/category.css">
+    <link rel="stylesheet" href="styles/sale.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <!-- Logo -->
+                <div class="logo">
+                    <a href="index.html" style="display: flex; align-items: center; gap: 0.5rem; text-decoration: none; color: inherit;">
+                        <div class="logo-icon">
+                            <i class="fas fa-shopping-bag"></i>
+                        </div>
+                        <span class="logo-text">StyleStep</span>
+                    </a>
+                </div>
+
+                <!-- Navigation -->
+                <nav class="nav desktop-nav">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="socks.html" class="nav-link">Socks</a>
+                    <a href="shoes.html" class="nav-link">Shoes</a>
+                    <a href="salwar.html" class="nav-link">Salwar</a>
+                    <a href="sale.html" class="nav-link active">Sale</a>
+                </nav>
+
+                <!-- Actions -->
+                <div class="header-actions">
+                    <button class="action-btn search-btn" onclick="toggleSearch()">
+                        <i class="fas fa-search"></i>
+                    </button>
+                    
+                    <button class="action-btn wishlist-btn" onclick="toggleWishlist()">
+                        <i class="fas fa-heart"></i>
+                        <span class="badge wishlist-count">0</span>
+                    </button>
+                    
+                    <button class="action-btn account-btn">
+                        <i class="fas fa-user"></i>
+                    </button>
+                    
+                    <button class="action-btn cart-btn" onclick="toggleCart()">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span class="badge cart-count">0</span>
+                    </button>
+                    
+                    <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+                        <i class="fas fa-bars"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <div class="mobile-menu-content">
+                <a href="index.html" class="mobile-nav-link">Home</a>
+                <a href="socks.html" class="mobile-nav-link">Socks</a>
+                <a href="shoes.html" class="mobile-nav-link">Shoes</a>
+                <a href="salwar.html" class="mobile-nav-link">Salwar</a>
+                <a href="sale.html" class="mobile-nav-link">Sale</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Search Modal -->
+    <div class="modal search-modal" id="searchModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="search-form">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" id="searchInput" placeholder="Search sale items..." class="search-input">
+                    <button class="clear-search" onclick="clearSearch()">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                <button class="modal-close" onclick="toggleSearch()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="search-results" id="searchResults">
+                <div class="search-placeholder">
+                    <p>Start typing to search for sale items</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cart and Wishlist Sidebars -->
+    <div class="sidebar cart-sidebar" id="cartSidebar">
+        <div class="sidebar-content">
+            <div class="sidebar-header">
+                <h3><i class="fas fa-shopping-bag"></i> Your Cart (<span class="cart-items-count">0</span> items)</h3>
+                <button class="sidebar-close" onclick="toggleCart()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="cart-items" id="cartItems">
+                <div class="empty-cart">
+                    <div class="empty-icon">
+                        <i class="fas fa-shopping-bag"></i>
+                    </div>
+                    <h3>Your cart is empty</h3>
+                    <p>Looks like you haven't added any items to your cart yet.</p>
+                    <button class="btn btn-primary" onclick="toggleCart()">Continue Shopping</button>
+                </div>
+            </div>
+            <div class="cart-footer" id="cartFooter" style="display: none;">
+                <div class="cart-summary">
+                    <div class="summary-row">
+                        <span>Subtotal</span>
+                        <span class="cart-subtotal">$0.00</span>
+                    </div>
+                    <div class="summary-row">
+                        <span>Shipping</span>
+                        <span>Calculated at checkout</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total</span>
+                        <span class="cart-total">$0.00</span>
+                    </div>
+                </div>
+                <div class="cart-actions">
+                    <button class="btn btn-primary btn-full">Proceed to Checkout</button>
+                    <button class="btn btn-outline btn-full" onclick="clearCart()">Clear Cart</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sidebar wishlist-sidebar" id="wishlistSidebar">
+        <div class="sidebar-content">
+            <div class="sidebar-header">
+                <h3><i class="fas fa-heart"></i> Your Wishlist (<span class="wishlist-items-count">0</span> items)</h3>
+                <button class="sidebar-close" onclick="toggleWishlist()">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="wishlist-items" id="wishlistItems">
+                <div class="empty-wishlist">
+                    <div class="empty-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Your wishlist is empty</h3>
+                    <p>Start adding items you love by clicking the heart icon.</p>
+                    <button class="btn btn-primary" onclick="toggleWishlist()">Continue Shopping</button>
+                </div>
+            </div>
+            <div class="wishlist-footer" id="wishlistFooter" style="display: none;">
+                <div class="wishlist-actions">
+                    <button class="btn btn-primary btn-full" onclick="addAllToCart()">Add All to Cart</button>
+                    <button class="btn btn-outline btn-full" onclick="clearWishlist()">Clear Wishlist</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main>
+        <!-- Sale Hero -->
+        <section class="sale-hero">
+            <div class="container">
+                <div class="sale-hero-content">
+                    <div class="sale-badge">
+                        <i class="fas fa-fire"></i>
+                        <span>MEGA SALE</span>
+                        <i class="fas fa-fire"></i>
+                    </div>
+                    <h1 class="sale-title fade-in-up">Up to 70% Off</h1>
+                    <p class="sale-description fade-in-up">
+                        Limited time offers on your favorite products. Don't miss out on these amazing deals!
+                    </p>
+                    
+                    <!-- Countdown Timer -->
+                    <div class="countdown-timer fade-in-up">
+                        <div class="timer-label">Sale Ends In:</div>
+                        <div class="timer-display">
+                            <div class="timer-unit">
+                                <span class="timer-number" id="days">07</span>
+                                <span class="timer-label">Days</span>
+                            </div>
+                            <div class="timer-unit">
+                                <span class="timer-number" id="hours">23</span>
+                                <span class="timer-label">Hours</span>
+                            </div>
+                            <div class="timer-unit">
+                                <span class="timer-number" id="minutes">45</span>
+                                <span class="timer-label">Minutes</span>
+                            </div>
+                            <div class="timer-unit">
+                                <span class="timer-number" id="seconds">30</span>
+                                <span class="timer-label">Seconds</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Flash Sale Section -->
+        <section class="flash-sale-section">
+            <div class="container">
+                <div class="section-header">
+                    <div class="flash-sale-title">
+                        <i class="fas fa-bolt flash-icon"></i>
+                        <h2>⚡ Flash Sale</h2>
+                        <span class="badge badge-red">Limited Time</span>
+                    </div>
+                    <p>Grab these deals before they're gone!</p>
+                </div>
+                <div class="products-grid" id="flashSaleProducts">
+                    <!-- Flash sale products will be populated by JavaScript -->
+                </div>
+            </div>
+        </section>
+
+        <!-- Sale Products -->
+        <section class="sale-content">
+            <div class="container">
+                <div class="category-layout">
+                    <!-- Filters Sidebar -->
+                    <aside class="filters-sidebar">
+                        <div class="filters-header">
+                            <h3><i class="fas fa-filter"></i> Filters</h3>
+                            <button class="btn btn-outline btn-small" onclick="clearAllFilters()">Clear All</button>
+                        </div>
+
+                        <!-- Category Filter -->
+                        <div class="filter-group">
+                            <h4 class="filter-title">Category</h4>
+                            <div class="filter-options">
+                                <label class="filter-option">
+                                    <input type="checkbox" value="socks" onchange="filterByCategory()">
+                                    <span>🧦 Socks</span>
+                                </label>
+                                <label class="filter-option">
+                                    <input type="checkbox" value="shoes" onchange="filterByCategory()">
+                                    <span>👟 Shoes</span>
+                                </label>
+                                <label class="filter-option">
+                                    <input type="checkbox" value="salwar" onchange="filterByCategory()">
+                                    <span>👗 Salwar</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Discount Filter -->
+                        <div class="filter-group">
+                            <h4 class="filter-title">Discount</h4>
+                            <div class="filter-options">
+                                <label class="filter-option">
+                                    <input type="checkbox" value="50" onchange="filterByDiscount()">
+                                    <span>🔥 50%+ Off</span>
+                                </label>
+                                <label class="filter-option">
+                                    <input type="checkbox" value="30" onchange="filterByDiscount()">
+                                    <span>30%+ Off</span>
+                                </label>
+                                <label class="filter-option">
+                                    <input type="checkbox" value="20" onchange="filterByDiscount()">
+                                    <span>20%+ Off</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <!-- Price Filter -->
+                        <div class="filter-group">
+                            <h4 class="filter-title">Price Range</h4>
+                            <div class="price-range">
+                                <input type="range" id="priceRange" min="0" max="200" value="200" class="price-slider">
+                                <div class="price-labels">
+                                    <span>$0</span>
+                                    <span id="maxPrice">$200</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Flash Sale Filter -->
+                        <div class="filter-group">
+                            <h4 class="filter-title">Special Offers</h4>
+                            <div class="filter-options">
+                                <label class="filter-option">
+                                    <input type="checkbox" value="flash" onchange="filterBySpecial()">
+                                    <span>⚡ Flash Sale</span>
+                                </label>
+                                <label class="filter-option">
+                                    <input type="checkbox" value="limited" onchange="filterBySpecial()">
+                                    <span>⏰ Limited Stock</span>
+                                </label>
+                            </div>
+                        </div>
+                    </aside>
+
+                    <!-- Products Area -->
+                    <div class="products-area">
+                        <!-- Sort and View Controls -->
+                        <div class="products-controls">
+                            <div class="results-info">
+                                <span id="resultsCount">0 sale items</span>
+                            </div>
+                            <div class="controls-right">
+                                <div class="sort-controls">
+                                    <label for="sortSelect">Sort by:</label>
+                                    <select id="sortSelect" onchange="sortProducts()">
+                                        <option value="discount-high">Highest Discount</option>
+                                        <option value="discount-low">Lowest Discount</option>
+                                        <option value="price-low">Price: Low to High</option>
+                                        <option value="price-high">Price: High to Low</option>
+                                        <option value="rating">Highest Rated</option>
+                                    </select>
+                                </div>
+                                <div class="view-controls">
+                                    <button class="view-btn active" data-view="grid" onclick="changeView('grid')">
+                                        <i class="fas fa-th"></i>
+                                    </button>
+                                    <button class="view-btn" data-view="list" onclick="changeView('list')">
+                                        <i class="fas fa-list"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Products Grid -->
+                        <div class="products-grid" id="productsGrid">
+                            <!-- Sale products will be populated by JavaScript -->
+                        </div>
+
+                        <!-- Load More Button -->
+                        <div class="load-more-container" id="loadMoreContainer" style="display: none;">
+                            <button class="btn btn-outline btn-large" onclick="loadMoreProducts()">
+                                <i class="fas fa-plus"></i>
+                                Load More Sale Items
+                            </button>
+                        </div>
+
+                        <!-- No Results -->
+                        <div class="no-results" id="noResults" style="display: none;">
+                            <div class="no-results-icon">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <h3>No sale items found</h3>
+                            <p>Try adjusting your filters to see more products.</p>
+                            <button class="btn btn-primary" onclick="clearAllFilters()">Show All Sale Items</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sale Banner -->
+        <section class="sale-cta">
+            <div class="container">
+                <div class="sale-cta-content">
+                    <h2>Don't Miss Out!</h2>
+                    <p>These amazing deals won't last forever. Shop now and save big!</p>
+                    <button class="btn btn-large btn-white">Shop All Sale Items</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>StyleStep</h3>
+                    <p>Your premier destination for quality socks, shoes, and traditional salwar. Style meets comfort in every step.</p>
+                    <div class="social-links">
+                        <a href="#" class="social-link"><i class="fab fa-facebook"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="socks.html">Socks</a></li>
+                        <li><a href="shoes.html">Shoes</a></li>
+                        <li><a href="salwar.html">Salwar</a></li>
+                        <li><a href="sale.html">Sale</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Customer Service</h3>
+                    <ul class="footer-links">
+                        <li><a href="#contact">Contact Us</a></li>
+                        <li><a href="#shipping">Shipping Info</a></li>
+                        <li><a href="#returns">Returns</a></li>
+                        <li><a href="#size-guide">Size Guide</a></li>
+                        <li><a href="#faq">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h3>Newsletter</h3>
+                    <p>Subscribe for exclusive deals and new arrivals.</p>
+                    <form class="footer-newsletter" onsubmit="subscribeNewsletter(event)">
+                        <input type="email" placeholder="Enter your email" required>
+                        <button type="submit" class="btn btn-primary">Subscribe</button>
+                    </form>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 StyleStep. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Toast Notifications -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- Overlay -->
+    <div class="overlay" id="overlay"></div>
+
+    <!-- Scripts -->
+    <script src="scripts/data.js"></script>
+    <script src="scripts/utils.js"></script>
+    <script src="scripts/cart.js"></script>
+    <script src="scripts/wishlist.js"></script>
+    <script src="scripts/search.js"></script>
+    <script src="scripts/sale.js"></script>
+    <script>
+        // Initialize sale page
+        document.addEventListener('DOMContentLoaded', () => {
+            initSalePage();
+        });
+    </script>
+</body>
+</html>
